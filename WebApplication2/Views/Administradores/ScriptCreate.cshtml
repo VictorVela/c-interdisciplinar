@@ -1,0 +1,64 @@
+﻿@model WebApplication2.Models.Administrador
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h2>Create com Jquery e JavaScript</h2>
+
+<h4>Administrador</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="NomeAdministrador" class="control-label"></label>
+                <input asp-for="NomeAdministrador" class="form-control" />
+                <span asp-validation-for="NomeAdministrador" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SenhaAdministrador" class="control-label"></label>
+                <input asp-for="SenhaAdministrador" class="form-control" />
+                <span asp-validation-for="SenhaAdministrador" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+<!-- Script para salvar administrador no banco-->
+<script>
+    $("#submit").click(function () {
+        $.ajax({
+            url: "",//nome do arquivo que vai receber o GET
+            type: "get", //send it through get method
+            data: {
+                nome: $("#NomeAdministrador").val(),
+                senha: $("#SenhaAdministrador").val()
+            },
+            success: function (response) {
+                console.log($("#NomeAdministrador").val());
+                console.log($("#SenhaAdministrador").val());
+                console.log("Inserido com sucesso");
+                buscar();
+            },
+            error: function (xhr) {
+                console.log($("#ajaxNome").val());
+                console.log($("#SenhaAdministrador").val());
+                console.log("Não foi possivel inserir");
+            }
+        });
+    });
+</script>
+<!-- Script para salvar administrador no banco-->
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
